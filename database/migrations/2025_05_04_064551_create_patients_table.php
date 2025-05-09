@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
+            $table->string('uid')->unique();
             $table->string('medical_record_number')->unique(); // dari PID
             $table->string('name');
             $table->string('gender')->nullable();

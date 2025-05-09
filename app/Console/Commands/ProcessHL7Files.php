@@ -5,7 +5,8 @@ namespace App\Console\Commands;
 use App\Models\LabParameter;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use App\Models\Patient;
 
 class ProcessHL7Files extends Command
 {
@@ -32,7 +33,7 @@ class ProcessHL7Files extends Command
                     $patient = $this->saveToPatient($hl7);
                     $result = $this->saveToLabResult($hl7, $patient->id);
                     $this->saveToLabResultDetail($hl7, $result->id);
-
+                    $this->saveToLabResultImage($hl7, $result->id);
 
                     $this->info("Saved HL7 data to database.");
                 } else {
@@ -42,7 +43,7 @@ class ProcessHL7Files extends Command
                 // Storage::disk('local')->delete($file);
                 // $this->info("Deleted file: $file");
             } catch (\Exception $e) {
-                // $this->error("Failed to process $file: " . $e->getMessage());
+                $this->error("Failed to process $file: " . $e->getMessage());
                 // Storage::disk('local')->delete($file);
             }
         }
@@ -101,14 +102,32 @@ class ProcessHL7Files extends Command
         // Format nama pasien: ^Zhang San -> Zhang San
         $name = trim(str_replace('^', ' ', $patientName));
 
-        return \App\Models\Patient::firstOrCreate(
-            ['medical_record_number' => $medicalRecordNumber],
-            [
+        // hanya ambil angka saja dari medical record number
+        $medicalRecordNumber = preg_replace('/\D/', '', $medicalRecordNumber);
+
+        // generate uid
+        $uid = Str::uuid()->toString();
+
+        $pasien = Patient::where('medical_record_number', $medicalRecordNumber)->first();
+
+        if ($pasien) {
+            $pasien->update([
+                'uid' => $uid,
+                'name' => $name,
+                'birth_date' => $birthDate ? \Carbon\Carbon::parse($birthDate)->format('Y-m-d') : $pasien->birth_date,
+                'gender' => $this->getGender($stringPid),
+            ]);
+        } else {
+            $pasien = Patient::create([
+                'uid' => $uid,
+                'medical_record_number' => $medicalRecordNumber,
                 'name' => $name,
                 'birth_date' => $birthDate ? \Carbon\Carbon::parse($birthDate)->format('Y-m-d') : null,
                 'gender' => $this->getGender($stringPid),
-            ]
-        );
+            ]);
+        }
+
+        return $pasien;
     }
 
     public function saveToLabResult($segments, $patientId)
@@ -129,6 +148,7 @@ class ProcessHL7Files extends Command
         $resultDate = \Carbon\Carbon::createFromFormat('YmdHis', $resultDate)->format('Y-m-d H:i:s');
 
         $labResult = [
+            'uid' => Str::uuid()->toString(),
             'patient_id' => $patientId,
             'lab_number' => $labNumber,
             'test_type' => $testType,
@@ -167,6 +187,7 @@ class ProcessHL7Files extends Command
             }
 
             $data[] = [
+                'uid' => Str::uuid()->toString(),
                 'lab_result_id' => $labResultId,
                 'lab_parameter_id' => $labParameters[$code],
                 'result' => $result,
@@ -178,6 +199,56 @@ class ProcessHL7Files extends Command
 
         // Save Detail Result
         \App\Models\LabResultDetail::insert($data);
+    }
+
+    public function saveToLabResultImage($segments, $labResultId)
+    {
+        $obxSegments = $segments['OBX'] ?? [];
+
+        // Buat array untuk menampung data gambar
+        $imageData = [];
+
+        foreach ($obxSegments as $obx) {
+            $dataType = $obx[2] ?? '';
+            $paramDesc = $obx[3] ?? '';
+            $imageInfo = $obx[5] ?? '';
+
+            // Cek jika tipe datanya "ED" dan deskripsinya mengandung Histogram atau Scattergram
+            if ($dataType === 'ED' && (str_contains($paramDesc, 'Histogram') || str_contains($paramDesc, 'Scattergram'))) {
+
+                // Parse data image
+                $imageParts = explode('^', $imageInfo);
+
+                if (count($imageParts) >= 4) {
+                    $format = strtolower($imageParts[2]);  // png, bmp, jpg, dll
+                    $base64Data = $imageParts[4];
+
+                    // Generate nama file unik
+                    $fileName = Str::uuid()->toString() . '.' . $format;
+
+                    // Decode base64
+                    $decodedImage = base64_decode($base64Data);
+
+                    // Simpan ke storage Laravel (ke dalam folder `public/lab_results`)
+                    $filePath = "public/lab_results/{$fileName}";
+                    Storage::put($filePath, $decodedImage);
+
+                    // Simpan informasi gambar ke dalam array
+                    $imageData[] = [
+                        'uid' => Str::uuid()->toString(),
+                        'lab_result_id' => $labResultId,
+                        'description' => $paramDesc,
+                        'file_path' => "lab_results/{$fileName}",
+                        'created_at' => now(),
+                    ];
+                }
+            }
+        }
+
+        // Jika ada data, insert ke database
+        if (count($imageData) > 0) {
+            \App\Models\LabResultImage::insert($imageData);
+        }
     }
 
     private function getGender($string)

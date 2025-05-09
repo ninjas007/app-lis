@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('lab_parameters', function (Blueprint $table) {
+        Schema::create('lab_result_images', function (Blueprint $table) {
             $table->id();
             $table->string('uid')->unique();
-            $table->string('code')->unique(); // eg: WBC, HGB
-            $table->string('name');          // eg: White Blood Cell
-            $table->string('loinc_code')->nullable(); // eg: 6690-2
-            $table->string('default_unit')->nullable();
-            $table->string('default_ref_range')->nullable();
+            $table->foreignId('lab_result_id')->constrained()->onDelete('cascade');
+            $table->text('description')->nullable();
+            $table->text('file_path')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lab_parameters');
+        Schema::dropIfExists('lab_result_images');
     }
 };

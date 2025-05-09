@@ -4,7 +4,7 @@
 <div class="nk-sidebar">
     <div class="nk-nav-scroll">
         <ul class="metismenu" id="menu">
-            <li class="nav-label">MENU</li>
+            <li class="nav-label">MENU UTAMA</li>
             <li>
                 <a href="{{ url('/home') }}" aria-expanded="false">
                     <i class="fa fa-dashboard menu-icon"></i><span class="nav-text">Dashboard</span>
@@ -22,19 +22,28 @@
             </li>
             <li class="nav-label">Pengaturan</li>
             <li>
+                <a href="{{ url('/parameter') }}" aria-expanded="false">
+                    <i class="fa fa-list menu-icon"></i><span class="nav-text">Parameter</span>
+                </a>
+            </li>
+            {{-- <li>
                 <a href="{{ url('/template') }}" aria-expanded="false">
                     <i class="fa fa-briefcase menu-icon"></i><span class="nav-text">Template</span>
                 </a>
-                <a href="{{ url('/sistem') }}" aria-expanded="false">
-                    <i class="fa fa-server menu-icon"></i><span class="nav-text">Konfigurasi Sistem</span>
+            </li> --}}
+            <li>
+                <a href="{{ url('/setting') }}" aria-expanded="false">
+                    <i class="fa fa-gears menu-icon"></i><span class="nav-text">Setting</span>
                 </a>
-                <a href="{{ url('/sistem') }}" aria-expanded="false">
-                    <i class="fa fa-cogs menu-icon"></i><span class="nav-text">Konfigurasi Alat</span>
+            </li>
+            <li>
+                <a href="{{ url('/tentang') }}" aria-expanded="false">
+                    <i class="fa fa-paperclip menu-icon"></i><span class="nav-text">Tentang</span>
                 </a>
             </li>
 
             {{-- divider --}}
-            <div class="divider border"></div>
+            <div class="divider border mt-2"></div>
 
             {{-- logout --}}
             <li>
@@ -46,5 +55,5 @@
     </div>
 </div>
 <!--**********************************
-                    Sidebar end
-                ***********************************-->
+    Sidebar end
+***********************************-->

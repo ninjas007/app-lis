@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('lab_results', function (Blueprint $table) {
             $table->id();
+            $table->string('uid')->unique();
             $table->foreignId('patient_id')->constrained()->onDelete('cascade');
             $table->string('lab_number')->nullable(); // optional
             $table->string('doctor')->nullable();

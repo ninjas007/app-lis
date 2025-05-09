@@ -10,6 +10,7 @@ class LabResultDetail extends Model
     use HasFactory;
 
     protected $fillable = [
+        'uid',
         'lab_result_id',
         'lab_parameter_id',
         'result_value',

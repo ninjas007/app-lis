@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LabParameter extends Model
+class LabResultImage extends Model
 {
     use HasFactory;
 
+    protected $table = 'lab_result_images';
+
     protected $fillable = [
         'uid',
-        'code',
-        'name',
-        'loinc_code',
-        'default_unit',
-        'default_ref_range',
+        'lab_result_id',
+        'description',
+        'file_path'
     ];
 }

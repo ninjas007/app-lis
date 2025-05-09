@@ -10,6 +10,7 @@ class LabResult extends Model
     use HasFactory;
 
     protected $fillable = [
+        'uid',
         'patient_id',
         'lab_number',
         'doctor',
@@ -29,5 +30,10 @@ class LabResult extends Model
     public function details()
     {
         return $this->hasMany(LabResultDetail::class);
+    }
+
+    public function resultImages()
+    {
+        return $this->hasMany(LabResultImage::class);
     }
 }
