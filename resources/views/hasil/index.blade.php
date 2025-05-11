@@ -4,26 +4,6 @@
     <link rel="stylesheet" href="{{ asset('theme') }}/css/jquery.dataTables.min.css">
 
     <style>
-        .status-validated {
-            background-color: #d1e7dd;
-            color: #198754;
-            padding: 3px 8px;
-            border-radius: 5px;
-        }
-
-        .status-pending {
-            background-color: #fff3cd;
-            color: #856404;
-            padding: 3px 8px;
-            border-radius: 5px;
-        }
-
-        .datatable-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-
         .table thead th {
             vertical-align: middle;
         }
@@ -38,7 +18,7 @@
     <div class="card">
         <div class="card-body">
             <div class="datatable-header">
-                <h4 class="mb-3">Hasil Pemeriksaan</h4>
+                <h4 class="mb-3"><i class="fa fa-medkit"></i> Hasil Pemeriksaan</h4>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -76,6 +56,20 @@
                     $('td', row).css('white-space', 'pre-line');
                 },
                 ajax: "{{ url('hasil/data') }}",
+                language: {
+                    search: "Cari berdasarkan MRN atau nama pasien:",       // Mengganti teks "Search"
+                    // lengthMenu: "Tampilkan _MENU_ data per halaman",
+                    // zeroRecords: "Data tidak ditemukan",
+                    // info: "Menampilkan _START_ hingga _END_ dari _TOTAL_ data",
+                    // infoEmpty: "Tidak ada data tersedia",
+                    // infoFiltered: "(disaring dari _MAX_ total data)",
+                    // paginate: {
+                    //     first: "Pertama",
+                    //     last: "Terakhir",
+                    //     next: "Berikutnya",
+                    //     previous: "Sebelumnya"
+                    // }
+                },
                 columns: [
                     {
                         width: '5%',
@@ -86,10 +80,7 @@
                     },
                     {
                         data: 'medical_record_number',
-                        name: 'medical_record_number',
-                        render: function (data, type, row) {
-                            return row.patient.medical_record_number || '-'
-                        }
+                        name: 'medical_record_number'
                     },
                     {
                         data: 'pasien',
@@ -161,7 +152,7 @@
                             </a>`;
                         }
                     }
-                ]
+                ],
             });
         });
     </script>

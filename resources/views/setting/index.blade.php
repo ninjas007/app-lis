@@ -62,7 +62,7 @@
 
         <!-- Koneksi Alat -->
         <div class="col-md-4">
-            <a href="{{ url('/setting/connection') }}" class="card-link">
+            <a href="{{ url('/setting/alat') }}" class="card-link">
                 <div class="card card-config shadow-sm">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center">

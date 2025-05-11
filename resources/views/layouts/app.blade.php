@@ -284,84 +284,20 @@
             });
         }
 
-        async function deleteData(url) {
+        function logout() {
             Swal.fire({
                 title: 'Apakah anda yakin?',
-                text: "Data ini akan dihapus!",
+                text: "Anda tidak akan dapat mengembalikan ini!",
                 icon: 'warning',
                 showCancelButton: true,
+                confirmButtonText: 'Ya, Logout!',
+                cancelButtonText: 'Tidak, Batalkan!',
+                confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, hapus!'
+                reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $.ajax({
-                        url: url,
-                        type: "POST",
-                        data: {
-                            _method: "DELETE"
-                        },
-                        headers: {
-                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                        },
-                        credentials: "include",
-                        beforeSend: function() {
-                            Swal.fire({
-                                title: "Loading...",
-                                text: "Menghapus data...",
-                                buttons: false,
-                                closeOnClickOutside: false,
-                                closeOnEsc: false,
-                            });
-                        },
-                        success: function(res, textStatus, xhr) {
-                            if (res.status == 'success') {
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Berhasil",
-                                    text: res.message,
-                                    timer: 1500
-                                }).then(() => {
-                                    location.reload();
-                                });
-                            } else {
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Gagal",
-                                    text: res.message,
-                                    timer: 1500
-                                }).then(() => {
-                                    location.reload();
-                                });
-                            }
-                        },
-                        error: function(xhr) {
-                            if (xhr.status === 422) {
-                                const errors = xhr.responseJSON?.errors || {};
-
-                                let errorMessages = "";
-                                for (let field in errors) {
-                                    const fieldErrors = errors[field].join(" ");
-                                    errorMessages += `${fieldErrors}<br>`;
-                                }
-
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Error Validasi",
-                                    html: errorMessages
-                                })
-                            } else {
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Error",
-                                    text: "Terjadi kesalahan. Silahkan coba lagi.",
-                                    timer: 1500
-                                }).then(() => {
-                                    location.reload();
-                                });
-                            }
-
-                        }
-                    })
+                    document.getElementById('logout-form').submit();
                 }
             })
         }

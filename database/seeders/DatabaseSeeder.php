@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
-            LabParameterSeeder::class
+            LabParameterSeeder::class,
+            SettingGeneralSeeder::class
         ]);
     }
 }

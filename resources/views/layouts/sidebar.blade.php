@@ -12,7 +12,7 @@
             </li>
             <li>
                 <a href="{{ url('/pasien') }}" aria-expanded="false">
-                    <i class="fa fa-users menu-icon"></i><span class="nav-text">Pasien</span>
+                    <i class="fa fa-user menu-icon"></i><span class="nav-text">Pasien</span>
                 </a>
             </li>
             <li>
@@ -47,13 +47,19 @@
 
             {{-- logout --}}
             <li>
-                <a href="{{ url('/logout') }}" aria-expanded="false">
+                <a href="javascript:void()" onclick="logout()" aria-expanded="false">
                     <i class="fa fa-sign-out menu-icon text-danger"></i><span class="nav-text text-danger">Logout</span>
                 </a>
             </li>
         </ul>
     </div>
 </div>
+
+
+<form action="{{ url('/logout') }}" method="POST" id="logout-form">
+    @csrf
+</form>
+
 <!--**********************************
     Sidebar end
 ***********************************-->

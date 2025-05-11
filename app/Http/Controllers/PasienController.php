@@ -72,6 +72,9 @@ class PasienController extends Controller
                         <i class="fa fa-list"></i>
                     </a>';
                 })
+                ->addColumn('total_test', function ($row) {
+                    return $row->labResults()->count();
+                })
                 ->addColumn('age', function ($row) {
                     if ($row->birth_date) {
                         return \Carbon\Carbon::parse($row->birth_date)->age . ' yrs';

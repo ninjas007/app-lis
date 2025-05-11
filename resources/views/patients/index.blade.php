@@ -4,26 +4,6 @@
     <link rel="stylesheet" href="{{ asset('theme') }}/css/jquery.dataTables.min.css">
 
     <style>
-        .status-validated {
-            background-color: #d1e7dd;
-            color: #198754;
-            padding: 3px 8px;
-            border-radius: 5px;
-        }
-
-        .status-pending {
-            background-color: #fff3cd;
-            color: #856404;
-            padding: 3px 8px;
-            border-radius: 5px;
-        }
-
-        .datatable-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-        }
-
         .table thead th {
             vertical-align: middle;
         }
@@ -38,7 +18,7 @@
     <div class="card">
         <div class="card-body">
             <div class="datatable-header">
-                <h4 class="mb-3">Pasien</h4>
+                <h4 class="mb-3"><i class="fa fa-user"></i> Pasien</h4>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -46,10 +26,12 @@
                         <thead class="bg-primary text-white">
                             <tr>
                                 <th>No</th>
-                                <th>Medical Record</th>
-                                <th>Name</th>
+                                <th>MRN</th>
+                                <th>Nama</th>
+                                <th>Jenis Kelamin</th>
                                 <th>Tanggal Lahir</th>
                                 <th>Usia</th>
+                                <th>Total Test</th>
                                 <th>List Hasil</th>
                             </tr>
                         </thead>
@@ -83,10 +65,13 @@
                     {
                         data: 'name',
                         name: 'name',
+                    },
+                    {
+                        data: 'gender',
+                        name: 'gender',
+                        width: '15%',
                         render: function(data, type, row) {
-                            return `<a href="{{ url('pasien') }}/${row.uid}">${data}</a>
-                            <br>
-                            ` + getGenderContent(row.gender) + ``;
+                            return getGenderContent(data);
                         }
                     },
                     {
@@ -98,6 +83,12 @@
                         data: 'age',
                         name: 'age',
                         width: '15%'
+                    },
+                    {
+                        data: 'total_test',
+                        name: 'total_test',
+                        className: 'text-center',
+                        width: '10%',
                     },
                     {
                         data: 'hasil_lab',
@@ -112,9 +103,9 @@
 
             function getGenderContent(gender) {
                 if (gender == 'Male') {
-                    return '<span class="badge badge-primary">Laki-laki</span>';
+                    return `<span class="badge badge-primary font-weight-bold">${gender}</span>`;
                 } else if (gender == 'Female') {
-                    return '<span class="badge badge-danger">Perempuan</span>';
+                    return `<span class="badge badge-danger font-weight-bold">${gender}</span>`;
                 }
             }
         });

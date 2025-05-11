@@ -13,6 +13,14 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+
+        $schedule->command('hl7:multi-listen')
+            ->everyMinute()
+            ->appendOutputTo(storage_path('logs/hl7_multi_listen.log'));
+
+        $schedule->command('hl7:process')
+            ->everyMinute()
+            ->appendOutputTo(storage_path('logs/hl7_process.log'));
     }
 
     /**
@@ -20,7 +28,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands(): void
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

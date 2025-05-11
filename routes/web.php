@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AlatController;
 use App\Http\Controllers\LabResultController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,7 +44,16 @@ Route::middleware(['auth'])->group(function () {
     // setting
     Route::group(['prefix' => 'setting'], function () {
         Route::get('/', [SettingController::class, 'index'])->name('setting.index');
-        Route::post('/', [SettingController::class, 'store'])->name('setting.store');
+        Route::get('/general', [SettingController::class, 'general'])->name('setting.general');
+
+        Route::group(['prefix' => 'alat'], function () {
+            Route::get('/', [AlatController::class, 'index'])->name('setting.alat');
+            Route::get('/create', [AlatController::class, 'create'])->name('setting.alat.create');
+            Route::post('/store', [AlatController::class, 'store'])->name('setting.alat.store');
+            Route::get('/{uid}/edit', [AlatController::class, 'edit'])->name('setting.alat.edit');
+            Route::put('/{uid}/update', [AlatController::class, 'update'])->name('setting.alat.update');
+            Route::delete('/{uid}/destroy', [AlatController::class, 'destroy'])->name('setting.alat.destroy');
+        });
     });
 
     // tentang
@@ -56,6 +66,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [LabResultController::class, 'index'])->name('hasil.index');
         Route::get('/data', [LabResultController::class, 'getData'])->name('hasil.data');
     });
+
+    // parameter
+    Route::resource('parameter', App\Http\Controllers\ParameterController::class);
 });
 
 // Route::get('/hasil', [HL7LabResultController::class, 'index']);

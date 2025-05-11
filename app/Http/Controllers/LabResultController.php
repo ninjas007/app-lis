@@ -25,9 +25,15 @@ class LabResultController extends Controller
         $labResults->with(['details.labParameter', 'patient']);
 
         return DataTables::of($labResults)
+            ->addColumn('medical_record_number', function ($row) {
+                if ($row->patient->medical_record_number == "") {
+                    return '-';
+                }
+
+                return $row->patient->medical_record_number ?? '-';
+            })
             ->addColumn('pasien', function ($row) {
-                return '<a>
-                    <strong>' . $row->patient->name . '</strong>
+                return '<a href="/pasien/' . $row->patient->uid . '" target="_blank"><strong>' . $row->patient->name . '</strong>
                     <span class="badge text-white bg-primary">' . $row->patient->gender . '</span>
                 </a>';
             })

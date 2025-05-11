@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Patient;
 
-class ProcessHL7Files extends Command
+class ProcessHl7Files extends Command
 {
     protected $signature = 'hl7:process';
     protected $description = 'Process HL7 files and store data to database';
@@ -40,11 +40,11 @@ class ProcessHL7Files extends Command
                     $this->warn("No OBX segments (lab results) found in $file.");
                 }
 
-                // Storage::disk('local')->delete($file);
-                // $this->info("Deleted file: $file");
+                Storage::disk('local')->delete($file);
+                $this->info("Deleted file: $file");
             } catch (\Exception $e) {
                 $this->error("Failed to process $file: " . $e->getMessage());
-                // Storage::disk('local')->delete($file);
+                Storage::disk('local')->delete($file);
             }
         }
     }
