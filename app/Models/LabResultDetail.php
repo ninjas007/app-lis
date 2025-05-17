@@ -13,7 +13,7 @@ class LabResultDetail extends Model
         'uid',
         'lab_result_id',
         'lab_parameter_id',
-        'result_value',
+        'result',
         'unit',
         'reference_range',
         'result_date',

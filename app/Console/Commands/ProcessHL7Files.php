@@ -40,8 +40,8 @@ class ProcessHl7Files extends Command
                     $this->warn("No OBX segments (lab results) found in $file.");
                 }
 
-                Storage::disk('local')->delete($file);
-                $this->info("Deleted file: $file");
+                // Storage::disk('local')->delete($file);
+                // $this->info("Deleted file: $file");
             } catch (\Exception $e) {
                 $this->error("Failed to process $file: " . $e->getMessage());
                 Storage::disk('local')->delete($file);

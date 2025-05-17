@@ -39,6 +39,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{uid}', [PasienController::class, 'show'])->name('patients.show');
         Route::get('/{uid}/lab', [PasienController::class, 'getDataResult'])->name('patients.getDataResult');
         Route::get('/{pasienUid}/detail/{resultUid}', [PasienController::class, 'detail'])->name('patients.detail');
+        Route::post('/{pasienUid}/detail/{resultUid}', [PasienController::class, 'saveDetail'])->name('patients.saveDetail');
+        Route::post('/{pasienUid}/hasil-pemeriksaan/{resultUid}', [PasienController::class, 'saveHasilPemeriksaan'])->name('patients.saveHasilPemeriksaan');
+        Route::get('/{pasienUid}/print/{resultUid}', [PasienController::class, 'print'])->name('patients.print');
+        // Route::get('/{pasienUid}/preview/{resultUid}', [PasienController::class, 'preview'])->name('patients.preview');
     });
 
     // setting
