@@ -52,10 +52,10 @@
                             onclick="printHasil(`{{ $pasien->uid }}`, `{{ $labResult->uid }}`, 'summary')">
                             <i class="fa fa-file"></i> Print A4 Potrait
                         </a>
-                        <a class="dropdown-item" href="javascript:void(0)"
+                        {{-- <a class="dropdown-item" href="javascript:void(0)"
                             onclick="printHasil(`{{ $pasien->uid }}`, `{{ $labResult->uid }}`, 'detail')">
                             <i class="fa fa-file"></i> Print A4 Landscape
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </div>
