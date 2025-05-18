@@ -8,8 +8,8 @@
                     <div class="card-body">
                         <h3 class="card-title text-white">Total Pasien</h3>
                         <div class="d-inline-block">
-                            <h2 class="text-white">{{ $total_pasien ?? 0 }}</h2>
-                            {{-- <p class="text-white mb-0">Jan - March 2019</p> --}}
+                            <h2 class="text-white">{{ $totalPasien ?? 0 }}</h2>
+                            <p class="text-white mb-0">Total pasien</p>
                         </div>
                         <span class="float-right display-5 opacity-5"><i class="fa fa-user"></i></span>
                     </div>
@@ -20,49 +20,41 @@
                     <div class="card-body">
                         <h3 class="card-title text-white">Total Hasil Lab</h3>
                         <div class="d-inline-block">
-                            <h2 class="text-white">{{ $total_hasil_lab ?? 0 }}</h2>
-                            {{-- <p class="text-white mb-0">Jan - March 2019</p> --}}
+                            <h2 class="text-white">{{ $totalHasilLab ?? 0 }}</h2>
+                            <p class="text-white mb-0">Total hasil lab</p>
                         </div>
                         <span class="float-right display-5 opacity-5"><i class="fa fa-medkit"></i></span>
                     </div>
                 </div>
             </div>
-            {{-- <div class="col-lg-3 col-sm-6">
+            <div class="col-lg-3 col-sm-6">
                 <div class="card gradient-3">
                     <div class="card-body">
-                        <h3 class="card-title text-white"></h3>
+                        <h3 class="card-title text-white">Hasil Pending</h3>
                         <div class="d-inline-block">
-                            <h2 class="text-white">4565</h2>
-                            <p class="text-white mb-0">Jan - March 2019</p>
+                            <h2 class="text-white">{{ $totalPending ?? 0 }}</h2>
+                            <p class="text-white mb-0">Hasil lab pending</p>
                         </div>
-                        <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-refresh"></i></span>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6">
-                <div class="card gradient-4">
+                <div class="card gradient-6">
                     <div class="card-body">
-                        <h3 class="card-title text-white">Customer Satisfaction</h3>
+                        <h3 class="card-title text-white">Hasil Selesai</h3>
                         <div class="d-inline-block">
-                            <h2 class="text-white">99%</h2>
-                            <p class="text-white mb-0">Jan - March 2019</p>
+                            <h2 class="text-white">{{ $totalSelesai ?? 0 }}</h2>
+                            <p class="text-white mb-0">Hasil Lab Selesai</p>
                         </div>
-                        <span class="float-right display-5 opacity-5"><i class="fa fa-heart"></i></span>
-                    </div>
-                </div>
-            </div> --}}
-        </div>
-
-        <div class="row">
-            <div class="col-lg-6 col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Transaksi Berdasarkan Jenis Kelamin</h4>
-                        <div id="morris-bar-chart"></div>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-check"></i></span>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-12">
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Grafik Berdasarkan Usia</h4>
@@ -70,136 +62,77 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-8 col-md-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-header p-2 pb-0">
+                        <div class="card-title pt-2">Hasil Lab Terbaru</div>
+                    </div>
+                    <div class="card-body p-2">
                         <div class="active-member">
                             <div class="table-responsive">
-                                <table class="table table-xs mb-0">
-                                    <thead>
+                                <table class="table table-xs table-hover mb-0">
+                                    <thead class="bg-primary text-white">
                                         <tr>
-                                            <th>Customers</th>
-                                            <th>Product</th>
-                                            <th>Country</th>
-                                            <th>Status</th>
-                                            <th>Payment Method</th>
-                                            <th>Activity</th>
+                                            <th width="30%">Pasien</th>
+                                            <th width="20%">Waktu Test</th>
+                                            <th width="10%">Status</th>
+                                            <th width="10%">WBC</th>
+                                            <th width="10%">RBC</th>
+                                            <th width="5%">#</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><img src="{{ asset('theme') }}/images/avatar/1.jpg"
-                                                    class=" rounded-circle mr-3" alt="">Sarah Smith</td>
-                                            <td>iPhone X</td>
-                                            <td>
-                                                <span>United States</span>
-                                            </td>
-                                            <td>
-                                                <div>
-                                                    <div class="progress" style="height: 6px">
-                                                        <div class="progress-bar bg-success" style="width: 50%"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
-                                            <td>
-                                                <span>Last Login</span>
-                                                <span class="m-0 pl-3">10 sec ago</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="{{ asset('theme') }}/images/avatar/2.jpg"
-                                                    class=" rounded-circle mr-3" alt="">Walter R.</td>
-                                            <td>Pixel 2</td>
-                                            <td><span>Canada</span></td>
-                                            <td>
-                                                <div>
-                                                    <div class="progress" style="height: 6px">
-                                                        <div class="progress-bar bg-success" style="width: 50%"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
-                                            <td>
-                                                <span>Last Login</span>
-                                                <span class="m-0 pl-3">50 sec ago</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="{{ asset('theme') }}/images/avatar/3.jpg"
-                                                    class=" rounded-circle mr-3" alt="">Andrew D.</td>
-                                            <td>OnePlus</td>
-                                            <td><span>Germany</span></td>
-                                            <td>
-                                                <div>
-                                                    <div class="progress" style="height: 6px">
-                                                        <div class="progress-bar bg-warning" style="width: 50%"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><i class="fa fa-circle-o text-warning  mr-2"></i> Pending</td>
-                                            <td>
-                                                <span>Last Login</span>
-                                                <span class="m-0 pl-3">10 sec ago</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="{{ asset('theme') }}/images/avatar/6.jpg"
-                                                    class=" rounded-circle mr-3" alt=""> Megan S.</td>
-                                            <td>Galaxy</td>
-                                            <td><span>Japan</span></td>
-                                            <td>
-                                                <div>
-                                                    <div class="progress" style="height: 6px">
-                                                        <div class="progress-bar bg-success" style="width: 50%"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
-                                            <td>
-                                                <span>Last Login</span>
-                                                <span class="m-0 pl-3">10 sec ago</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="{{ asset('theme') }}/images/avatar/4.jpg"
-                                                    class=" rounded-circle mr-3" alt=""> Doris R.</td>
-                                            <td>Moto Z2</td>
-                                            <td><span>England</span></td>
-                                            <td>
-                                                <div>
-                                                    <div class="progress" style="height: 6px">
-                                                        <div class="progress-bar bg-success" style="width: 50%"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><i class="fa fa-circle-o text-success  mr-2"></i> Paid</td>
-                                            <td>
-                                                <span>Last Login</span>
-                                                <span class="m-0 pl-3">10 sec ago</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><img src="{{ asset('theme') }}/images/avatar/5.jpg"
-                                                    class=" rounded-circle mr-3" alt="">Elizabeth W.</td>
-                                            <td>Notebook Asus</td>
-                                            <td><span>China</span></td>
-                                            <td>
-                                                <div>
-                                                    <div class="progress" style="height: 6px">
-                                                        <div class="progress-bar bg-warning" style="width: 50%"></div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><i class="fa fa-circle-o text-warning  mr-2"></i> Pending</td>
-                                            <td>
-                                                <span>Last Login</span>
-                                                <span class="m-0 pl-3">10 sec ago</span>
-                                            </td>
-                                        </tr>
+                                        @foreach ($hasilLabTerbaruList as $hasil)
+                                            <tr>
+                                                <td>
+                                                    {{ $hasil->patient->name ?? '-' }}
+                                                    <br>
+                                                    <small class="text-muted">
+                                                        RM: {{ $hasil->patient->no_rm ?? '-' }}
+                                                    </small>
+                                                    <br>
+                                                </td>
+                                                <td class="font-weight-bold">
+                                                    @if ($hasil->sample_taken_at != null)
+                                                        {{ \Carbon\Carbon::parse($hasil->sample_taken_at)->format('d M Y') }}
+                                                        <br>
+                                                        <small class="text-muted">
+                                                            {{ \Carbon\Carbon::parse($hasil->sample_taken_at)->format('H:i') }}
+                                                        </small>
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($hasil->result_at != null)
+                                                        <span class="badge badge-success text-white">Selesai</span>
+                                                    @else
+                                                        <span class="badge badge-danger text-white">Pending</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @foreach ($hasil->details as $detail)
+                                                        @if ($detail->labParameter->code == 'WBC')
+                                                            {{ $detail->result }}
+                                                            @break;
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                                <td>
+                                                    @foreach ($hasil->details as $detail)
+                                                        @if ($detail->labParameter->code == 'RBC')
+                                                            {{ $detail->result }}
+                                                            @break;
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                                <td>
+                                                    <a href="{{ url('#') }}">
+                                                        <i class="fa fa-arrow-right"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
