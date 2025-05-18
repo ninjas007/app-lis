@@ -28,7 +28,7 @@
                                <ul>
                                    <li>{{ auth()->user()->name }}</li>
                                    <li>
-                                       <a href="app-profile.html"><i class="icon-user"></i>
+                                       <a href="{{ url('/profile') }}"><i class="icon-user"></i>
                                            <span>Profile</span></a>
                                    </li>
                                    <hr class="my-2">

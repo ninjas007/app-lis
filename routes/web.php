@@ -30,6 +30,9 @@ Route::post('/login', [LoginController::class, 'store'])->name('login');
 
 // route with auth middleware
 Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [LoginController::class, 'profile'])->name('profile');
+    Route::post('/profile', [LoginController::class, 'saveProfile'])->name('saveProfile');
+
     Route::get('/home', [DashboardController::class, 'index'])->name('home');
 
     // pasien
