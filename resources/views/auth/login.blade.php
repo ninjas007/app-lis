@@ -1,20 +1,32 @@
 @extends('auth.template')
 
+@section('styles')
+<style>
+    .login-form-bg {
+        background-image: url('{{ asset('images/background.png') }}') !important;
+        background-size: cover !important;
+        background-position: center !important;
+    }
+</style>
+@endsection
+
 @section('content')
     <div class="login-form-bg h-100">
         <div class="container h-100">
             <div class="row justify-content-center h-100">
-                <div class="col-xl-6">
+                <div class="col-xl-5">
                     <div class="form-input-content">
                         <div class="card login-form mb-0">
-                            <div class="card-body pt-5">
+                            <div class="card-body">
                                 <div class="text-center">
+                                    <img src="{{ asset('images/gambar-login.png') }}" alt="" style="width: 100px; height: 100px; background-size: contain; border-radius: 20px">
+                                    <br>
+                                    <br>
                                     <h4>Login</h4>
                                 </div>
-
-                                <form class="mt-5 mb-5 login-input" method="POST" action="{{ route('login') }}">
+                                <form class="mt-2 mb-3 login-input" method="POST" action="{{ route('login') }}">
                                     @csrf
-                                    <div class="form-group">
+                                    <div class="form-group mb-1">
                                         <input type="text" class="form-control" name="username" placeholder="Username">
 
                                         @error('username')
@@ -28,7 +40,9 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                    <button type="submit" class="btn login-form__btn submit w-100">Sign In</button>
+                                    <button type="submit" class="btn login-form__btn btn-sm submit w-100">
+                                       <i class="fa fa-sign-in"></i> Sign In
+                                    </button>
                                 </form>
                             </div>
                         </div>

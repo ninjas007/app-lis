@@ -14,7 +14,7 @@
 
     <title>HEMATOLOGI HISTORY - {{ strtoupper($page) ?? 'Home' }}</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('theme') }}/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo.png') }}">
     <!-- Pignose Calender -->
     <link href="{{ asset('theme') }}/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet">
     <!-- Chartist -->
@@ -46,6 +46,11 @@
             min-height: 100% !important;
             padding-bottom: 80px !important;
         }
+
+        .nav-header .brand-logo a {
+            padding: 0.6135rem 1.8125rem;
+            display: block;
+        }
     </style>
 
 </head>
@@ -76,14 +81,16 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-        <div class="nav-header">
+        <div class="nav-header text-center pb-2">
             <div class="brand-logo">
-                <a href="index.html">
-                    <b class="logo-abbr"><img src="{{ asset('theme') }}/images/logo-white.png" alt=""> </b>
-                    <span class="logo-compact"><img src="{{ asset('theme') }}/images/logo-white.png"
-                            alt=""></span>
+                <a href="{{ url('/') }}">
+                    <b class="logo-abbr"><img src="{{ asset('images/logo.png') }}" alt=""
+                            style="width: 50px; height: 50px; background-size: contain;"> </b>
+                    <span class="logo-compact"><img src="{{ asset('images/logo.png') }}" alt=""
+                            style="width: 50px; height: 50px; background-size: contain;"></span>
                     <span class="brand-title">
-                        <img src="{{ asset('theme') }}/images/logo-white.png" alt="">
+                        <img src="{{ asset('images/logo.png') }}" alt=""
+                            style="width: 50px; height: 50px; background-size: contain;">
                     </span>
                 </a>
             </div>

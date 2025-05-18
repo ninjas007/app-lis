@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['prefix' => 'setting'], function () {
         Route::get('/', [SettingController::class, 'index'])->name('setting.index');
         Route::get('/general', [SettingController::class, 'general'])->name('setting.general');
+        Route::post('/general', [SettingController::class, 'saveGeneral'])->name('setting.saveGeneral');
 
         Route::group(['prefix' => 'alat'], function () {
             Route::get('/', [AlatController::class, 'index'])->name('setting.alat');
