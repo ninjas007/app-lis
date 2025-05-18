@@ -127,7 +127,7 @@
                                                     @endforeach
                                                 </td>
                                                 <td>
-                                                    <a href="{{ url('#') }}">
+                                                    <a href="{{ url('pasien/' . $hasil->patient->uid . '/detail/' . $hasil->uid) }}">
                                                         <i class="fa fa-arrow-right"></i>
                                                     </a>
                                                 </td>
