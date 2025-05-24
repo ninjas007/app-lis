@@ -20,6 +20,24 @@
                     <i class="fa fa-medkit menu-icon"></i><span class="nav-text">Hasil Pemeriksaan</span>
                 </a>
             </li>
+            <li>
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="fa fa-envelope menu-icon"></i> <span class="nav-text">Laporan</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('laporan/kunjungan-pasien') }}">Kunjugan Pasien</a></li>
+                    <li><a href="{{ url('laporan/hasil') }}">Hasil</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="fa fa-file menu-icon"></i> <span class="nav-text">Master</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ url('master/ruangan') }}">Ruangan</a></li>
+                    <li><a href="{{ url('master/pasien') }}">Pasien</a></li>
+                </ul>
+            </li>
             <li class="nav-label">Pengaturan</li>
             <li>
                 <a href="{{ url('/parameter') }}" aria-expanded="false">

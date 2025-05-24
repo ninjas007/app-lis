@@ -27,7 +27,7 @@
                                 <form class="mt-2 mb-3 login-input" method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="form-group mb-2">
-                                        <input type="text" class="form-control" name="username" placeholder="Username" style="border-bottom: 0.5px solid #a2a2a2">
+                                        <input type="text" class="form-control" name="username" placeholder="Username" style="border-bottom: 0.5px solid #a2a2a2" autocomplete="off">
 
                                         @error('username')
                                             <span class="text-danger">{{ $message }}</span>

@@ -12,6 +12,9 @@ class Controller extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
     public function logError($e) {
+        if (config('app.debug')) {
+            dd($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
+        }
         Log::error($e->getMessage() . ' ' . $e->getFile() . ' ' . $e->getLine());
     }
 }

@@ -127,7 +127,8 @@
                                                     @endforeach
                                                 </td>
                                                 <td>
-                                                    <a href="{{ url('pasien/' . $hasil->patient->uid . '/detail/' . $hasil->uid) }}">
+                                                    <a
+                                                        href="{{ url('pasien/' . $hasil->patient->uid . '/detail/' . $hasil->uid) }}">
                                                         <i class="fa fa-arrow-right"></i>
                                                     </a>
                                                 </td>
@@ -152,5 +153,68 @@
     <script src="{{ asset('theme') }}/plugins/flot/js/jquery.flot.pie.js"></script>
     <script src="{{ asset('theme') }}/plugins/flot/js/jquery.flot.resize.js"></script>
     <script src="{{ asset('theme') }}/plugins/flot/js/jquery.flot.spline.js"></script>
-    <script src="{{ asset('theme') }}/plugins/flot/js/jquery.flot.init.js"></script>
+    {{-- <script src="{{ asset('theme') }}/plugins/flot/js/jquery.flot.init.js"></script> --}}
+    <script>
+        /**************** PIE CHART *******************/
+        function labelFormatter(label, series) {
+            return "<div style='font-size:8pt; text-align:center; padding:2px; color:white;'>" + label + "<br/>" + Math
+                .round(series.percent) + "%</div>";
+        }
+
+        var piedata = [{
+                label: "Series 1",
+                data: [
+                    [1, 50]
+                ],
+                color: '#e1e8f0'
+            },
+            {
+                label: "Series 2",
+                data: [
+                    [1, 90]
+                ],
+                color: '#6ed3cf'
+            },
+            {
+                label: "Series 3",
+                data: [
+                    [1, 50]
+                ],
+                color: '#9068be'
+            },
+            {
+                label: "Series 4",
+                data: [
+                    [1, 70]
+                ],
+                color: '#e62739'
+            },
+            {
+                label: "Series 5",
+                data: [
+                    [1, 30]
+                ],
+                color: '#173e43'
+            }
+        ];
+
+        $.plot('#flotPie1', piedata, {
+            series: {
+                pie: {
+                    show: true,
+                    radius: 1,
+                    label: {
+                        show: true,
+                        radius: 2 / 3,
+                        formatter: labelFormatter,
+                        threshold: 0.1
+                    }
+                }
+            },
+            grid: {
+                hoverable: true,
+                clickable: true
+            }
+        });
+    </script>
 @endsection

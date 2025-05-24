@@ -8,6 +8,8 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AlatController;
 use App\Http\Controllers\LabResultController;
+use App\Http\Controllers\ParameterController;
+use App\Http\Controllers\RuanganController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -76,7 +78,32 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // parameter
-    Route::resource('parameter', App\Http\Controllers\ParameterController::class);
+    Route::resource('parameter', ParameterController::class);
+
+    // master
+    Route::group(['prefix' => 'master'], function () {
+
+        // ruangan
+        Route::group(['prefix' => 'ruangan'], function () {
+            Route::get('/', [RuanganController::class, 'index'])->name('master.ruangan.index');
+            Route::get('/{uid}/edit', [RuanganController::class, 'edit'])->name('master.ruangan.data');
+            Route::get('/create', [RuanganController::class, 'create'])->name('master.ruangan.create');
+            Route::post('/store', [RuanganController::class, 'store'])->name('master.ruangan.store');
+            Route::put('/{uid}/update', [RuanganController::class, 'update'])->name('master.ruangan.update');
+            Route::delete('/{uid}/destroy', [RuanganController::class, 'destroy'])->name('master.ruangan.destroy');
+        });
+
+        // pasien
+        // Route::group(['prefix' => 'pasien'], function () {
+        //     Route::get('/', [PasienController::class, 'index'])->name('master.pasien.index');
+        //     Route::get('/data', [PasienController::class, 'getData'])->name('master.pasien.data');
+        //     Route::post('/store', [PasienController::class, 'store'])->name('master.pasien.store');
+        //     Route::put('/{uid}/update', [PasienController::class, 'update'])->name('master.pasien.update');
+        //     Route::delete('/{uid}/destroy', [PasienController::class, 'destroy'])->name('master.pasien.destroy');
+        // });
+
+    });
+
 });
 
 // Route::get('/hasil', [HL7LabResultController::class, 'index']);
