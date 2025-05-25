@@ -9,7 +9,9 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AlatController;
 use App\Http\Controllers\LabResultController;
 use App\Http\Controllers\ParameterController;
-use App\Http\Controllers\RuanganController;
+use App\Http\Controllers\Master\RuanganController;
+use App\Http\Controllers\Master\StatusPasienController;
+use App\Http\Controllers\Master\JenisLayananController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -93,14 +95,25 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/{uid}/destroy', [RuanganController::class, 'destroy'])->name('master.ruangan.destroy');
         });
 
-        // pasien
-        // Route::group(['prefix' => 'pasien'], function () {
-        //     Route::get('/', [PasienController::class, 'index'])->name('master.pasien.index');
-        //     Route::get('/data', [PasienController::class, 'getData'])->name('master.pasien.data');
-        //     Route::post('/store', [PasienController::class, 'store'])->name('master.pasien.store');
-        //     Route::put('/{uid}/update', [PasienController::class, 'update'])->name('master.pasien.update');
-        //     Route::delete('/{uid}/destroy', [PasienController::class, 'destroy'])->name('master.pasien.destroy');
-        // });
+        // status pasien
+        Route::group(['prefix' => 'status-pasien'], function () {
+            Route::get('/', [StatusPasienController::class, 'index'])->name('master.status-pasien.index');
+            Route::get('/{uid}/edit', [StatusPasienController::class, 'edit'])->name('master.status-pasien.data');
+            Route::get('/create', [StatusPasienController::class, 'create'])->name('master.status-pasien.create');
+            Route::post('/store', [StatusPasienController::class, 'store'])->name('master.status-pasien.store');
+            Route::put('/{uid}/update', [StatusPasienController::class, 'update'])->name('master.status-pasien.update');
+            Route::delete('/{uid}/destroy', [StatusPasienController::class, 'destroy'])->name('master.status-pasien.destroy');
+        });
+
+        // jenis layanan
+        Route::group(['prefix' => 'jenis-layanan'], function () {
+            Route::get('/', [JenisLayananController::class, 'index'])->name('master.jenis-layanan.index');
+            Route::get('/{uid}/edit', [JenisLayananController::class, 'edit'])->name('master.jenis-layanan.data');
+            Route::get('/create', [JenisLayananController::class, 'create'])->name('master.jenis-layanan.create');
+            Route::post('/store', [JenisLayananController::class, 'store'])->name('master.jenis-layanan.store');
+            Route::put('/{uid}/update', [JenisLayananController::class, 'update'])->name('master.jenis-layanan.update');
+            Route::delete('/{uid}/destroy', [JenisLayananController::class, 'destroy'])->name('master.jenis-layanan.destroy');
+        });
 
     });
 

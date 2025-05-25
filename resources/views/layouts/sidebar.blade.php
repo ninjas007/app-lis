@@ -35,15 +35,12 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ url('master/ruangan') }}">Ruangan</a></li>
-                    <li><a href="{{ url('master/pasien') }}">Pasien</a></li>
+                    <li><a href="{{ url('master/status-pasien') }}">Status Pasien</a></li>
+                    <li><a href="{{ url('master/jenis-layanan') }}">Jenis Layanan</a></li>
+                    <li><a href="{{ url('/parameter') }}">Parameter</a></li>
                 </ul>
             </li>
             <li class="nav-label">Pengaturan</li>
-            <li>
-                <a href="{{ url('/parameter') }}" aria-expanded="false">
-                    <i class="fa fa-list menu-icon"></i><span class="nav-text">Parameter</span>
-                </a>
-            </li>
             {{-- <li>
                 <a href="{{ url('/template') }}" aria-expanded="false">
                     <i class="fa fa-briefcase menu-icon"></i><span class="nav-text">Template</span>

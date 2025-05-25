@@ -78,7 +78,7 @@
                                         <tr>
                                             <td width="30%">No. RM</td>
                                             <td><input type="text" name="pasien_norm"
-                                                    value="{{ $pasien->medical_record_number ?? '' }}"></td>
+                                                    value="{{ $pasien->medical_record_number ?? '' }}" required></td>
                                         </tr>
                                         <tr>
                                             <td>Nama</td>
@@ -152,7 +152,12 @@
                                         <tr>
                                             <td>Ruangan/Poli</td>
                                             <td colspan="2">
-                                                <input type="text" name="hasil_ruangan_poli" value="{{ $pasienHasilDetail->ruangan_poli ?? '' }}">
+                                                <select name="hasil_ruangan_poli" id="hasilRuanganPoli">
+                                                    <option value="">Pilih Ruangan</option>
+                                                    @foreach ($ruangans as $ruangan)
+                                                        <option value="{{ $ruangan->name }}" {{ $pasienHasilDetail->ruangan_poli ?? '' == $ruangan->name ? 'selected' : '' }}>{{ $ruangan->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </td>
                                         </tr>
                                         <tr>
@@ -171,8 +176,10 @@
                                             <td>Status Pasien</td>
                                             <td colspan="2">
                                                 <select name="hasil_status_pasien" id="">
-                                                    <option value="Umum" {{ ($pasienHasilDetail->status ?? '') == 'Umum' ? 'selected' : '' }}>Umum</option>
-                                                    <option value="BPJS" {{ ($pasienHasilDetail->status ?? '') == 'BPJS' ? 'selected' : '' }}>BPJS</option>
+                                                    <option value="">Pilih Status Pasien</option>
+                                                    @foreach ($statusPasien as $status)
+                                                        <option value="{{ $status->name }}" {{ ($pasienHasilDetail->status ?? '') == $status->name ? 'selected' : '' }}>{{ $status->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </td>
                                         </tr>
@@ -180,8 +187,10 @@
                                             <td>Jenis Layanan</td>
                                             <td colspan="2">
                                                 <select name="hasil_jenis_layanan" id="">
-                                                    <option value="Reguler" {{ ($pasienHasilDetail->jenis_layanan ?? '') == 'Reguler' ? 'selected' : '' }}>Reguler</option>
-                                                    <option value="VIP" {{ ($pasienHasilDetail->jenis_layanan ?? '') == 'VIP' ? 'selected' : '' }}>VIP</option>
+                                                    <option value="">Pilih Jenis Layanan</option>
+                                                    @foreach ($jenisLayanan as $jenis)
+                                                        <option value="{{ $jenis->name }}" {{ ($pasienHasilDetail->jenis_layanan ?? '') == $jenis->name ? 'selected' : '' }}>{{ $jenis->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </td>
                                         </tr>

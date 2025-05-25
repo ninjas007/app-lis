@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\LabResult;
+use App\Models\Master\MasterJenisLayanan;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Models\PasienHasilDetail;
+use App\Models\Master\MasterRuangan;
+use App\Models\Master\MasterStatusPasien;
 use Yajra\DataTables\Facades\DataTables;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -60,6 +63,9 @@ class PasienController extends Controller
 
         $labResultDetail = $labResult->details()->get();
         $labResultImages = $labResult->resultImages()->get();
+        $ruangans = MasterRuangan::get();
+        $statusPasien = MasterStatusPasien::get();
+        $jenisLayanan = MasterJenisLayanan::get();
 
         return view('patients.detail', [
             'page' => $this->page,
@@ -68,7 +74,10 @@ class PasienController extends Controller
             'pasien' => $pasien,
             'labDetails' => $labResultDetail,
             'labResultImages' => $labResultImages,
-            'pasienHasilDetail' => $pasienHasilDetail
+            'pasienHasilDetail' => $pasienHasilDetail,
+            'ruangans' => $ruangans,
+            'statusPasien' => $statusPasien,
+            'jenisLayanan' => $jenisLayanan,
         ]);
     }
 
@@ -111,6 +120,12 @@ class PasienController extends Controller
 
     public function saveDetail(Request $request, $pasienUid, $resultUid)
     {
+        $this->validate($request, [
+            'pasien_norm' => 'required',
+        ], [
+            'pasien_norm.required' => 'No RM harus diisi',
+        ]);
+
         $pasien = Patient::where('uid', $pasienUid)->first();
 
         if (!$pasien) {

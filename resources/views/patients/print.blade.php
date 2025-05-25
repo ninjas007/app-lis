@@ -154,8 +154,16 @@
                         </tr>
                         <tr>
                             <td>Age: </td>
-                            <td>{{ Carbon\Carbon::parse($pasien->date_of_birth)->age }}</td>
+                            <td>
+                                @php
+                                    $birthDate = \Carbon\Carbon::parse($pasien->birth_date);
+                                    $today = \Carbon\Carbon::now();
+                                    $diff = $birthDate->diff($today);
+                                @endphp
+                                {{ $diff->y }} tahun, {{ $diff->m }} bulan, {{ $diff->d }} hari
+                            </td>
                         </tr>
+
                     </table>
                 </td>
             </tr>
@@ -231,13 +239,13 @@
 
     <table style="margin-bottom: 10px" id="tableFooter">
         <tr>
-            <td style="padding: 5px">Submitter: {{ $labResult->submitter ?? 'Siapa' }}</td>
-            <td style="padding: 5px">Operator: {{ $labResult->operator ?? 'service' }}</td>
-            <td style="padding: 5px">Approver: {{ $labResult->approver ?? 'DR. Radjsa' }} </td>
+            <td style="padding: 5px">Submitter: {{ $labResult->submitter ?? '' }}</td>
+            <td style="padding: 5px">Operator: {{ $pasienHasilDetail->petugas ?? '' }}</td>
+            <td style="padding: 5px">Approver: {{ $pasienHasilDetail->verifikasi ?? '' }} </td>
         </tr>
         <tr>
             <td>
-                Sampling Time: {{ $labResult->sample_taken_at ?? '' }}
+                Sampling Time: {{ \Carbon\Carbon::parse($labResult->sample_taken_at)->format('d/m/Y H:i:s') ?? '' }}
             </td>
             <td>
                 Delivery Time: {{ $labResult->delivery_time_at ?? '' }}
@@ -248,7 +256,7 @@
         </tr>
         <tr>
             <td>
-                Report Time: {{ $labResult->report_time_at ?? '' }}
+                Report Time: {{ \Carbon\Carbon::parse($labResult->result_at)->format('d/m/Y H:i:s') ?? '' }}
             </td>
             <td>
                 Remarks: {{ $labResult->remarks ?? '' }}

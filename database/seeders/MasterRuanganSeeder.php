@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
-use App\Models\MasterRuangan;
+use App\Models\Master\MasterRuangan;
 
 class MasterRuanganSeeder extends Seeder
 {

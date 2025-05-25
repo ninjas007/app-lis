@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('master_ruangans', function (Blueprint $table) {
+        Schema::create('master_status_pasiens', function (Blueprint $table) {
             $table->id();
             $table->uuid('uid')->unique();
             $table->string('name');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('master_ruangans');
+        Schema::dropIfExists('master_status_pasiens');
     }
 };

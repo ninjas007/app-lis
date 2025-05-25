@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Master;
 
 use Illuminate\Http\Request;
-use App\Models\MasterRuangan as Ruangan;
+use App\Models\Master\MasterRuangan as Ruangan;
 use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
 
 class RuanganController extends Controller
 {
@@ -60,14 +61,6 @@ class RuanganController extends Controller
             $this->logError($e);
             return redirect()->back()->with('error', 'Terjadi kesalahan, silahkan coba lagi');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $uid)
-    {
-        //
     }
 
     /**
