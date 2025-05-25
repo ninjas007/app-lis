@@ -25,7 +25,7 @@
                     <i class="fa fa-envelope menu-icon"></i> <span class="nav-text">Laporan</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ url('laporan/kunjungan-pasien') }}">Kunjugan Pasien</a></li>
+                    <li><a href="{{ url('laporan/kunjungan-pasien') }}">Kunjungan Pasien</a></li>
                     <li><a href="{{ url('laporan/hasil') }}">Hasil</a></li>
                 </ul>
             </li>
