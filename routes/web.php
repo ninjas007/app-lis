@@ -39,84 +39,84 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/home', [DashboardController::class, 'index'])->name('home');
 
-    // pasien
-    Route::group(['prefix' => 'pasien'], function () {
-        Route::get('/', [PasienController::class, 'index'])->name('patients.index');
-        Route::get('/data', [PasienController::class, 'getData'])->name('patients.data');
-        Route::get('/{uid}', [PasienController::class, 'show'])->name('patients.show');
-        Route::get('/{uid}/lab', [PasienController::class, 'getDataResult'])->name('patients.getDataResult');
-        Route::get('/{pasienUid}/detail/{resultUid}', [PasienController::class, 'detail'])->name('patients.detail');
-        Route::post('/{pasienUid}/detail/{resultUid}', [PasienController::class, 'saveDetail'])->name('patients.saveDetail');
-        Route::post('/{pasienUid}/hasil-pemeriksaan/{resultUid}', [PasienController::class, 'saveHasilPemeriksaan'])->name('patients.saveHasilPemeriksaan');
-        Route::get('/{pasienUid}/print/{resultUid}', [PasienController::class, 'print'])->name('patients.print');
-        // Route::get('/{pasienUid}/preview/{resultUid}', [PasienController::class, 'preview'])->name('patients.preview');
-    });
-
-    // setting
-    Route::group(['prefix' => 'setting'], function () {
-        Route::get('/', [SettingController::class, 'index'])->name('setting.index');
-        Route::get('/general', [SettingController::class, 'general'])->name('setting.general');
-        Route::post('/general', [SettingController::class, 'saveGeneral'])->name('setting.saveGeneral');
-
-        Route::group(['prefix' => 'alat'], function () {
-            Route::get('/', [AlatController::class, 'index'])->name('setting.alat');
-            Route::get('/create', [AlatController::class, 'create'])->name('setting.alat.create');
-            Route::post('/store', [AlatController::class, 'store'])->name('setting.alat.store');
-            Route::get('/{uid}/edit', [AlatController::class, 'edit'])->name('setting.alat.edit');
-            Route::put('/{uid}/update', [AlatController::class, 'update'])->name('setting.alat.update');
-            Route::delete('/{uid}/destroy', [AlatController::class, 'destroy'])->name('setting.alat.destroy');
-        });
-    });
-
-    // tentang
-    Route::group(['prefix' => 'tentang'], function () {
-        Route::get('/', [AboutController::class, 'index'])->name('about.index');
-    });
-
-    // hasil
-    Route::group(['prefix' => 'hasil'], function () {
-        Route::get('/', [LabResultController::class, 'index'])->name('hasil.index');
-        Route::get('/data', [LabResultController::class, 'getData'])->name('hasil.data');
-    });
-
-    // parameter
-    Route::resource('parameter', ParameterController::class);
-
-    // master
-    Route::group(['prefix' => 'master'], function () {
-
-        // ruangan
-        Route::group(['prefix' => 'ruangan'], function () {
-            Route::get('/', [RuanganController::class, 'index'])->name('master.ruangan.index');
-            Route::get('/{uid}/edit', [RuanganController::class, 'edit'])->name('master.ruangan.data');
-            Route::get('/create', [RuanganController::class, 'create'])->name('master.ruangan.create');
-            Route::post('/store', [RuanganController::class, 'store'])->name('master.ruangan.store');
-            Route::put('/{uid}/update', [RuanganController::class, 'update'])->name('master.ruangan.update');
-            Route::delete('/{uid}/destroy', [RuanganController::class, 'destroy'])->name('master.ruangan.destroy');
+    Route::middleware(['client'])->group(function () {
+        // pasien
+        Route::group(['prefix' => 'pasien'], function () {
+            Route::get('/', [PasienController::class, 'index'])->name('patients.index');
+            Route::get('/data', [PasienController::class, 'getData'])->name('patients.data');
+            Route::get('/{uid}', [PasienController::class, 'show'])->name('patients.show');
+            Route::get('/{uid}/lab', [PasienController::class, 'getDataResult'])->name('patients.getDataResult');
+            Route::get('/{pasienUid}/detail/{resultUid}', [PasienController::class, 'detail'])->name('patients.detail');
+            Route::post('/{pasienUid}/detail/{resultUid}', [PasienController::class, 'saveDetail'])->name('patients.saveDetail');
+            Route::post('/{pasienUid}/hasil-pemeriksaan/{resultUid}', [PasienController::class, 'saveHasilPemeriksaan'])->name('patients.saveHasilPemeriksaan');
+            Route::get('/{pasienUid}/print/{resultUid}', [PasienController::class, 'print'])->name('patients.print');
+            // Route::get('/{pasienUid}/preview/{resultUid}', [PasienController::class, 'preview'])->name('patients.preview');
         });
 
-        // status pasien
-        Route::group(['prefix' => 'status-pasien'], function () {
-            Route::get('/', [StatusPasienController::class, 'index'])->name('master.status-pasien.index');
-            Route::get('/{uid}/edit', [StatusPasienController::class, 'edit'])->name('master.status-pasien.data');
-            Route::get('/create', [StatusPasienController::class, 'create'])->name('master.status-pasien.create');
-            Route::post('/store', [StatusPasienController::class, 'store'])->name('master.status-pasien.store');
-            Route::put('/{uid}/update', [StatusPasienController::class, 'update'])->name('master.status-pasien.update');
-            Route::delete('/{uid}/destroy', [StatusPasienController::class, 'destroy'])->name('master.status-pasien.destroy');
+        // setting
+        Route::group(['prefix' => 'setting'], function () {
+            Route::get('/', [SettingController::class, 'index'])->name('setting.index');
+            Route::get('/general', [SettingController::class, 'general'])->name('setting.general');
+            Route::post('/general', [SettingController::class, 'saveGeneral'])->name('setting.saveGeneral');
+
+            Route::group(['prefix' => 'alat'], function () {
+                Route::get('/', [AlatController::class, 'index'])->name('setting.alat');
+                Route::get('/create', [AlatController::class, 'create'])->name('setting.alat.create');
+                Route::post('/store', [AlatController::class, 'store'])->name('setting.alat.store');
+                Route::get('/{uid}/edit', [AlatController::class, 'edit'])->name('setting.alat.edit');
+                Route::put('/{uid}/update', [AlatController::class, 'update'])->name('setting.alat.update');
+                Route::delete('/{uid}/destroy', [AlatController::class, 'destroy'])->name('setting.alat.destroy');
+            });
         });
 
-        // jenis layanan
-        Route::group(['prefix' => 'jenis-layanan'], function () {
-            Route::get('/', [JenisLayananController::class, 'index'])->name('master.jenis-layanan.index');
-            Route::get('/{uid}/edit', [JenisLayananController::class, 'edit'])->name('master.jenis-layanan.data');
-            Route::get('/create', [JenisLayananController::class, 'create'])->name('master.jenis-layanan.create');
-            Route::post('/store', [JenisLayananController::class, 'store'])->name('master.jenis-layanan.store');
-            Route::put('/{uid}/update', [JenisLayananController::class, 'update'])->name('master.jenis-layanan.update');
-            Route::delete('/{uid}/destroy', [JenisLayananController::class, 'destroy'])->name('master.jenis-layanan.destroy');
+        // tentang
+        Route::group(['prefix' => 'tentang'], function () {
+            Route::get('/', [AboutController::class, 'index'])->name('about.index');
         });
 
+        // hasil
+        Route::group(['prefix' => 'hasil'], function () {
+            Route::get('/', [LabResultController::class, 'index'])->name('hasil.index');
+            Route::get('/data', [LabResultController::class, 'getData'])->name('hasil.data');
+        });
+
+        // parameter
+        Route::resource('parameter', ParameterController::class);
+
+        // master
+        Route::group(['prefix' => 'master'], function () {
+
+            // ruangan
+            Route::group(['prefix' => 'ruangan'], function () {
+                Route::get('/', [RuanganController::class, 'index'])->name('master.ruangan.index');
+                Route::get('/{uid}/edit', [RuanganController::class, 'edit'])->name('master.ruangan.data');
+                Route::get('/create', [RuanganController::class, 'create'])->name('master.ruangan.create');
+                Route::post('/store', [RuanganController::class, 'store'])->name('master.ruangan.store');
+                Route::put('/{uid}/update', [RuanganController::class, 'update'])->name('master.ruangan.update');
+                Route::delete('/{uid}/destroy', [RuanganController::class, 'destroy'])->name('master.ruangan.destroy');
+            });
+
+            // status pasien
+            Route::group(['prefix' => 'status-pasien'], function () {
+                Route::get('/', [StatusPasienController::class, 'index'])->name('master.status-pasien.index');
+                Route::get('/{uid}/edit', [StatusPasienController::class, 'edit'])->name('master.status-pasien.data');
+                Route::get('/create', [StatusPasienController::class, 'create'])->name('master.status-pasien.create');
+                Route::post('/store', [StatusPasienController::class, 'store'])->name('master.status-pasien.store');
+                Route::put('/{uid}/update', [StatusPasienController::class, 'update'])->name('master.status-pasien.update');
+                Route::delete('/{uid}/destroy', [StatusPasienController::class, 'destroy'])->name('master.status-pasien.destroy');
+            });
+
+            // jenis layanan
+            Route::group(['prefix' => 'jenis-layanan'], function () {
+                Route::get('/', [JenisLayananController::class, 'index'])->name('master.jenis-layanan.index');
+                Route::get('/{uid}/edit', [JenisLayananController::class, 'edit'])->name('master.jenis-layanan.data');
+                Route::get('/create', [JenisLayananController::class, 'create'])->name('master.jenis-layanan.create');
+                Route::post('/store', [JenisLayananController::class, 'store'])->name('master.jenis-layanan.store');
+                Route::put('/{uid}/update', [JenisLayananController::class, 'update'])->name('master.jenis-layanan.update');
+                Route::delete('/{uid}/destroy', [JenisLayananController::class, 'destroy'])->name('master.jenis-layanan.destroy');
+            });
+        });
     });
-
 });
 
 // Route::get('/hasil', [HL7LabResultController::class, 'index']);
