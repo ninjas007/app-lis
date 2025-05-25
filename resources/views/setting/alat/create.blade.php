@@ -19,11 +19,21 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="ip_address">IP Address</label>
+                            <label for="ip_address">IP Address Alat</label>
                             <input type="ip" name="ip_address" id="ip_address" class="form-control"
                                 placeholder="Masukkan IP Address" required>
 
                             @error('ip_address')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ip_local">IP Local</label>
+                            <input type="ip" name="ip_local" id="ip_local" class="form-control"
+                                placeholder="Masukkan IP Address Server" required>
+
+                            @error('ip_local')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>

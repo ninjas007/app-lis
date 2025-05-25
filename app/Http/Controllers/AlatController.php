@@ -51,6 +51,7 @@ class AlatController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'ip_local' => 'required',
             'ip_address' => 'required',
             'port' => 'required',
             'status' => 'required',
@@ -66,6 +67,7 @@ class AlatController extends Controller
             $alat->uid = Str::uuid();
             $alat->name = $request->name;
             $alat->ip_address = $request->ip_address;
+            $alat->ip_local = $request->ip_local;
             $alat->port = $request->port;
             $alat->status = $request->status;
             $alat->auto_connect = $request->auto_connect == 'on' ? 1 : 0;
@@ -107,6 +109,7 @@ class AlatController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'ip_address' => 'required',
+            'ip_local' => 'required',
             'port' => 'required',
             'status' => 'required',
         ], [
@@ -125,6 +128,7 @@ class AlatController extends Controller
 
             $alat->name = $request->name;
             $alat->ip_address = $request->ip_address;
+            $alat->ip_local = $request->ip_local;
             $alat->port = $request->port;
             $alat->status = $request->status;
             $alat->auto_connect = $request->auto_connect == 'on' ? 1 : 0;

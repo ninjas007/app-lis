@@ -19,7 +19,7 @@
                                 <tr>
                                     <th width="5%" class="text-center">No</th>
                                     <th>Nama</th>
-                                    <th>IP Address</th>
+                                    <th>IP Address Alat</th>
                                     <th>Port</th>
                                     <th>Status</th>
                                     <th>Connection</th>
