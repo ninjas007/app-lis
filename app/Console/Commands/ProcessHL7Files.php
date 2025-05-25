@@ -15,6 +15,13 @@ class ProcessHl7Files extends Command
 
     public function handle()
     {
+        // check directory
+        if (!Storage::disk('local')->exists('hl7')) {
+            Storage::disk('local')->makeDirectory('hl7');
+            $this->call('storage:link');
+            $this->info('Folder "hl7" created and storage linked.');
+        }
+
         $files = Storage::disk('local')->files('hl7');
 
         if (empty($files)) {
