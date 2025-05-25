@@ -25,7 +25,7 @@ class Hl7MultiListen extends Command
         $this->info("Memulai proses listen untuk setiap alat...");
 
         foreach ($alatList as $alat) {
-            $this->info("Starting listener for: {$alat->name} on {$alat->ip_address}:{$alat->port}");
+            $this->info("Starting listener for: {$alat->name} on {$alat->ip_local}:{$alat->port}");
 
             $replaceSpace = str_replace(' ', '_', $alat->name);
             $name = strtolower($replaceSpace);
@@ -34,7 +34,7 @@ class Hl7MultiListen extends Command
                 'php',
                 'artisan',
                 'hl7:listen',
-                $alat->ip_address,
+                $alat->ip_local,
                 $alat->port,
                 $alat->id,
                 $name
