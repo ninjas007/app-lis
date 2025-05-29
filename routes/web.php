@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\HL7LabResultController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PasienController;
@@ -13,6 +12,7 @@ use App\Http\Controllers\Master\RuanganController;
 use App\Http\Controllers\Master\StatusPasienController;
 use App\Http\Controllers\Master\JenisLayananController;
 use App\Http\Controllers\Master\DokterController;
+use App\Http\Controllers\Master\PetugasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -125,6 +125,16 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/store', [DokterController::class, 'store'])->name('master.dokter.store');
                 Route::put('/{uid}/update', [DokterController::class, 'update'])->name('master.dokter.update');
                 Route::delete('/{uid}/destroy', [DokterController::class, 'destroy'])->name('master.dokter.destroy');
+            });
+
+            // petugas
+            Route::group(['prefix' => 'petugas'], function () {
+                Route::get('/', [PetugasController::class, 'index'])->name('master.petugas.index');
+                Route::get('/{uid}/edit', [PetugasController::class, 'edit'])->name('master.petugas.data');
+                Route::get('/create', [PetugasController::class, 'create'])->name('master.petugas.create');
+                Route::post('/store', [PetugasController::class, 'store'])->name('master.petugas.store');
+                Route::put('/{uid}/update', [PetugasController::class, 'update'])->name('master.petugas.update');
+                Route::delete('/{uid}/destroy', [PetugasController::class, 'destroy'])->name('master.petugas.destroy');
             });
         });
     });

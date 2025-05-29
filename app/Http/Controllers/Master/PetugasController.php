@@ -3,25 +3,25 @@
 namespace App\Http\Controllers\Master;
 
 use Illuminate\Http\Request;
-use App\Models\Master\MasterDokter as Dokter;
+use App\Models\Master\MasterPetugas as Petugas;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 
-class DokterController extends Controller
+class PetugasController extends Controller
 {
-    protected $page = 'dokter';
+    protected $page = 'petugas';
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $dokters = Dokter::paginate(10);
+        $petugas = Petugas::paginate(10);
 
-        return view('dokter.index', [
+        return view('petugas.index', [
             'page' => $this->page,
-            'title' => 'Dokter',
-            'dokters' => $dokters
+            'title' => 'Petugas',
+            'petugas' => $petugas
         ]);
     }
 
@@ -30,9 +30,9 @@ class DokterController extends Controller
      */
     public function create()
     {
-        return view('dokter.create', [
+        return view('petugas.create', [
             'page' => $this->page,
-            'title' => 'Tambah Dokter'
+            'title' => 'Tambah Petugas'
         ]);
     }
 
@@ -48,15 +48,15 @@ class DokterController extends Controller
         ]);
 
         try {
-            $dokter = new Dokter();
-            $dokter->uid = Str::uuid();
-            $dokter->name = $request->name;
-            $dokter->description = $request->description;
-            $dokter->created_at = now();
-            $dokter->updated_at = now();
-            $dokter->save();
+            $petugas = new Petugas();
+            $petugas->uid = Str::uuid();
+            $petugas->name = $request->name;
+            $petugas->description = $request->description;
+            $petugas->created_at = now();
+            $petugas->updated_at = now();
+            $petugas->save();
 
-            return redirect()->route('master.dokter.index')->with('success', 'Data berhasil ditambahkan');
+            return redirect()->route('master.petugas.index')->with('success', 'Data berhasil ditambahkan');
         } catch (\Exception $e) {
             $this->logError($e);
             return redirect()->back()->with('error', 'Terjadi kesalahan, silahkan coba lagi');
@@ -68,10 +68,10 @@ class DokterController extends Controller
      */
     public function edit(string $uid)
     {
-        return view('dokter.edit', [
+        return view('petugas.edit', [
             'page' => $this->page,
-            'title' => 'Edit Dokter',
-            'dokter' => Dokter::where('uid', $uid)->firstOrFail()
+            'title' => 'Edit Petugas',
+            'petugas' => Petugas::where('uid', $uid)->firstOrFail()
         ]);
     }
 
@@ -87,13 +87,13 @@ class DokterController extends Controller
         ]);
 
         try {
-            $dokter = Dokter::where('uid', $uid)->firstOrFail();
-            $dokter->name = $request->name;
-            $dokter->description = $request->description;
-            $dokter->updated_at = now();
-            $dokter->save();
+            $petugas = Petugas::where('uid', $uid)->firstOrFail();
+            $petugas->name = $request->name;
+            $petugas->description = $request->description;
+            $petugas->updated_at = now();
+            $petugas->save();
 
-            return redirect()->route('master.dokter.index')->with('success', 'Data berhasil diubah');
+            return redirect()->route('master.petugas.index')->with('success', 'Data berhasil diubah');
         } catch (\Exception $e) {
             $this->logError($e);
             return redirect()->back()->with('error', 'Terjadi kesalahan, silahkan coba lagi');
@@ -105,7 +105,7 @@ class DokterController extends Controller
      */
     public function destroy(string $uid)
     {
-        $dokter = Dokter::where('uid', $uid)->first();
+        $dokter = Petugas::where('uid', $uid)->first();
         if (!$dokter) {
             return response()->json(['status' => 'error', 'message' => 'Data tidak ditemukan']);
         }
