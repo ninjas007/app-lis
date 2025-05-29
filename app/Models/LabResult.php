@@ -36,4 +36,9 @@ class LabResult extends Model
     {
         return $this->hasMany(LabResultImage::class);
     }
+
+    public function messages()
+    {
+        return $this->hasMany(LabResultMessage::class);
+    }
 }

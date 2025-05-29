@@ -56,6 +56,12 @@ class LoginController extends Controller
         // Ambil user yang sedang login
         $user = User::find(Auth::id());
 
+        $checkUsername = User::where('username', $request->username)->where('id', '!=', $user->id)->first();
+
+        if ($checkUsername) {
+            return back()->with('error', 'Username sudah digunakan.');
+        }
+
         if (!Hash::check($request->current_password, $user->password)) {
             return back()->with('error', 'Password lama tidak sesuai.');
         }

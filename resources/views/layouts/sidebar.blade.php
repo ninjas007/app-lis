@@ -34,6 +34,10 @@
                     <i class="fa fa-file menu-icon"></i> <span class="nav-text">Master</span>
                 </a>
                 <ul aria-expanded="false">
+                    <li><a href="{{ url('master/paket') }}">Paket</a></li>
+                    <li><a href="{{ url('master/dokter') }}">Dokter</a></li>
+                    <li><a href="{{ url('master/pasien') }}">Pasien</a></li>
+                    <li><a href="{{ url('master/pasien') }}">Petugas</a></li>
                     <li><a href="{{ url('master/ruangan') }}">Ruangan</a></li>
                     <li><a href="{{ url('master/status-pasien') }}">Status Pasien</a></li>
                     <li><a href="{{ url('master/jenis-layanan') }}">Jenis Layanan</a></li>

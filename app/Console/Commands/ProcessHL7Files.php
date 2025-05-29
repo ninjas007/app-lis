@@ -41,14 +41,19 @@ class ProcessHl7Files extends Command
                     $result = $this->saveToLabResult($hl7, $patient->id);
                     $this->saveToLabResultDetail($hl7, $result->id);
                     $this->saveToLabResultImage($hl7, $result->id);
+                    $this->saveToLabResultMessage($hl7, $result->id);
 
                     $this->info("Saved HL7 data to database.");
                 } else {
                     $this->warn("No OBX segments (lab results) found in $file.");
                 }
 
-                // Storage::disk('local')->delete($file);
-                // $this->info("Deleted file: $file");
+                if (env('HL7_DELETE_AFTER_PROCESS')) {
+                    Storage::disk('local')->delete($file);
+                    $this->info("Deleted file: $file");
+                } else {
+                    $this->info("File retained: $file");
+                }
             } catch (\Exception $e) {
                 $this->error("Failed to process $file: " . $e->getMessage());
                 Storage::disk('local')->delete($file);
@@ -257,6 +262,57 @@ class ProcessHl7Files extends Command
             \App\Models\LabResultImage::insert($imageData);
         }
     }
+
+    public function saveToLabResultMessage($segments, $labResultId)
+    {
+        $obxSegments = $segments['OBX'] ?? [];
+        $messageData = [];
+
+        foreach ($obxSegments as $obx) {
+            $dataType = $obx[2] ?? '';
+            $messageContent = $obx[3] ?? '';
+            $value = $obx[5] ?? ''; // Field ke-5 (nilai)
+
+            // Ambil IS dengan value tertentu
+            if ($dataType === 'IS' && in_array($value, ['W', 'CBC+DIFF', 'T'])) {
+                $content = explode('^', $messageContent);
+                $codeRaw = $content[0] ?? null;
+                $text = $content[1] ?? null;
+
+                $code = $codeRaw;
+                if (strpos($codeRaw, '-') !== false) {
+                    $codeParts = explode('-', $codeRaw);
+                    $code = $codeParts[0];
+                }
+
+                // Menentukan grup berdasarkan kode
+                $group = null;
+                if (preg_match('/^13\d+$/', $code)) {
+                    $group = 'WBC';
+                } elseif (preg_match('/^15\d+$/', $code)) {
+                    $group = 'RBC';
+                } elseif (preg_match('/^34\d+$/', $code)) {
+                    $group = 'PLT';
+                } else {
+                    $group = 'OTHER';
+                }
+
+                $messageData[] = [
+                    'uid' => Str::uuid()->toString(),
+                    'lab_result_id' => $labResultId,
+                    'code' => $codeRaw, // Tetap simpan kode asli lengkap
+                    'content' => $text,
+                    'group' => $group,  // Tambahkan field group
+                    'created_at' => now(),
+                ];
+            }
+        }
+
+        if (count($messageData) > 0) {
+            \App\Models\LabResultMessage::insert($messageData);
+        }
+    }
+
 
     private function getGender($string)
     {

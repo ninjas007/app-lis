@@ -65,7 +65,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <form action="{{ url('pasien'.'/'.$pasien->uid.'/detail/'.$labResult->uid) }}" method="POST">
+                <form action="{{ url('pasien' . '/' . $pasien->uid . '/detail/' . $labResult->uid) }}" method="POST">
                     <div class="card-header d-flex justify-content-between border-bottom">
                         <h5>Detail Pasien</h5>
                     </div>
@@ -128,25 +128,29 @@
                                         <tr>
                                             <td width="35%">No. Lab/ No. Reg</td>
                                             <td>
-                                                <input type="text" name="hasil_no_lab" value="{{ $labResult->lab_number ?? '' }}">
+                                                <input type="text" name="hasil_no_lab"
+                                                    value="{{ $labResult->lab_number ?? '' }}">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Tanggal</td>
                                             <td>
-                                                <input type="datetime-local" name="hasil_tanggal" value="{{ $labResult->result_at ? \Carbon\Carbon::parse($labResult->result_at)->format('Y-m-d\TH:i:s') : '' }}">
+                                                <input type="datetime-local" name="hasil_tanggal"
+                                                    value="{{ $labResult->result_at ? \Carbon\Carbon::parse($labResult->result_at)->format('Y-m-d\TH:i:s') : '' }}">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Dokter Pengirim</td>
                                             <td colspan="2">
-                                                <input type="text" name="hasil_dokter_pengirim" value="{{ $pasienHasilDetail->dokter_pengirim ?? '' }}">
+                                                <input type="text" name="hasil_dokter_pengirim"
+                                                    value="{{ $pasienHasilDetail->dokter_pengirim ?? '' }}">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Dokter Penanggung Jawab</td>
                                             <td colspan="2">
-                                                <input type="text" name="hasil_dokter_penanggung_jawab" value="{{ $pasienHasilDetail->dokter_penanggung_jawab ?? '' }}">
+                                                <input type="text" name="hasil_dokter_penanggung_jawab"
+                                                    value="{{ $pasienHasilDetail->dokter_penanggung_jawab ?? '' }}">
                                             </td>
                                         </tr>
                                         <tr>
@@ -155,7 +159,9 @@
                                                 <select name="hasil_ruangan_poli" id="hasilRuanganPoli">
                                                     <option value="">Pilih Ruangan</option>
                                                     @foreach ($ruangans as $ruangan)
-                                                        <option value="{{ $ruangan->name }}" {{ $pasienHasilDetail->ruangan_poli ?? '' == $ruangan->name ? 'selected' : '' }}>{{ $ruangan->name }}</option>
+                                                        <option value="{{ $ruangan->name }}"
+                                                            {{ $pasienHasilDetail->ruangan_poli ?? '' == $ruangan->name ? 'selected' : '' }}>
+                                                            {{ $ruangan->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </td>
@@ -163,13 +169,15 @@
                                         <tr>
                                             <td>Petugas</td>
                                             <td colspan="2">
-                                                <input type="text" name="hasil_petugas" value="{{ $pasienHasilDetail->petugas ?? '' }}">
+                                                <input type="text" name="hasil_petugas"
+                                                    value="{{ $pasienHasilDetail->petugas ?? '' }}">
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Verifikasi</td>
                                             <td colspan="2">
-                                                <input type="text" name="hasil_verifikasi" value="{{ $pasienHasilDetail->verifikasi ?? '' }}">
+                                                <input type="text" name="hasil_verifikasi"
+                                                    value="{{ $pasienHasilDetail->verifikasi ?? '' }}">
                                             </td>
                                         </tr>
                                         <tr>
@@ -178,7 +186,9 @@
                                                 <select name="hasil_status_pasien" id="">
                                                     <option value="">Pilih Status Pasien</option>
                                                     @foreach ($statusPasien as $status)
-                                                        <option value="{{ $status->name }}" {{ ($pasienHasilDetail->status ?? '') == $status->name ? 'selected' : '' }}>{{ $status->name }}</option>
+                                                        <option value="{{ $status->name }}"
+                                                            {{ ($pasienHasilDetail->status ?? '') == $status->name ? 'selected' : '' }}>
+                                                            {{ $status->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </td>
@@ -189,7 +199,9 @@
                                                 <select name="hasil_jenis_layanan" id="">
                                                     <option value="">Pilih Jenis Layanan</option>
                                                     @foreach ($jenisLayanan as $jenis)
-                                                        <option value="{{ $jenis->name }}" {{ ($pasienHasilDetail->jenis_layanan ?? '') == $jenis->name ? 'selected' : '' }}>{{ $jenis->name }}</option>
+                                                        <option value="{{ $jenis->name }}"
+                                                            {{ ($pasienHasilDetail->jenis_layanan ?? '') == $jenis->name ? 'selected' : '' }}>
+                                                            {{ $jenis->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </td>
@@ -207,11 +219,12 @@
                 </form>
             </div>
             <div class="card">
-                <form action="{{ url('pasien'.'/'.$pasien->uid.'/hasil-pemeriksaan/'.$labResult->uid) }}" method="POST">
+                <form action="{{ url('pasien' . '/' . $pasien->uid . '/hasil-pemeriksaan/' . $labResult->uid) }}"
+                    method="POST">
                     @csrf
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-8 px-0">
+                            <div class="col-sm-6 px-0">
                                 <h5 class="mb-3">Detail Pemeriksaan Laboratorium</h5>
                                 <table class="table table-striped table-sm">
                                     <thead class="bg-primary text-white">
@@ -228,9 +241,10 @@
                                             <tr>
                                                 <td width="20%">{{ $detail->labParameter->code ?? '-' }}</td>
                                                 <td width="30%">
-                                                    <input type="hidden" name="detail_ids[]" value="{{ $detail->id }}">
-                                                    <input type="text" name="lab_parameter_result[]" value="{{ $detail->result }}"
-                                                        style="width: 30%">
+                                                    <input type="hidden" name="detail_ids[]"
+                                                        value="{{ $detail->id }}">
+                                                    <input type="text" name="lab_parameter_result[]"
+                                                        value="{{ $detail->result }}" style="width: 30%">
                                                 </td>
                                                 <td width="20%">{{ $detail->unit }}</td>
                                                 <td width="20%">{{ $detail->reference_range }}</td>
@@ -270,6 +284,23 @@
                                     </tbody>
                                 </table>
                             </div>
+                            @php
+                                $groupedMessages = $labResultMessages->groupBy('group');
+                            @endphp
+                            <div class="col-sm-2">
+                                <h5 class="mb-3">Messages</h5>
+                                @foreach ($groupedMessages as $groupName => $messages)
+                                    <div class="border mb-2">
+                                        <div class="p-2">
+                                            <h6>{{ $groupName }}</h6> {{-- Nama group --}}
+                                            @foreach ($messages as $message)
+                                                {{ $message->content }} <br>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+
                             <div class="col-sm-4 pr-md-0">
                                 <h5 class="mb-3">Gambar Histogram & Scattergram</h5>
                                 <div class="image-grid">

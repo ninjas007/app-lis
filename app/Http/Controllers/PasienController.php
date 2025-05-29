@@ -63,6 +63,7 @@ class PasienController extends Controller
 
         $labResultDetail = $labResult->details()->get();
         $labResultImages = $labResult->resultImages()->get();
+        $labResultMessages = $labResult->messages()->get();
         $ruangans = MasterRuangan::get();
         $statusPasien = MasterStatusPasien::get();
         $jenisLayanan = MasterJenisLayanan::get();
@@ -75,6 +76,7 @@ class PasienController extends Controller
             'labDetails' => $labResultDetail,
             'labResultImages' => $labResultImages,
             'pasienHasilDetail' => $pasienHasilDetail,
+            'labResultMessages' => $labResultMessages,
             'ruangans' => $ruangans,
             'statusPasien' => $statusPasien,
             'jenisLayanan' => $jenisLayanan,

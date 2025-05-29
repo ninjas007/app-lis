@@ -12,6 +12,7 @@ use App\Http\Controllers\ParameterController;
 use App\Http\Controllers\Master\RuanganController;
 use App\Http\Controllers\Master\StatusPasienController;
 use App\Http\Controllers\Master\JenisLayananController;
+use App\Http\Controllers\Master\DokterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -114,6 +115,16 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/store', [JenisLayananController::class, 'store'])->name('master.jenis-layanan.store');
                 Route::put('/{uid}/update', [JenisLayananController::class, 'update'])->name('master.jenis-layanan.update');
                 Route::delete('/{uid}/destroy', [JenisLayananController::class, 'destroy'])->name('master.jenis-layanan.destroy');
+            });
+
+            // dokter
+            Route::group(['prefix' => 'dokter'], function () {
+                Route::get('/', [DokterController::class, 'index'])->name('master.dokter.index');
+                Route::get('/{uid}/edit', [DokterController::class, 'edit'])->name('master.dokter.data');
+                Route::get('/create', [DokterController::class, 'create'])->name('master.dokter.create');
+                Route::post('/store', [DokterController::class, 'store'])->name('master.dokter.store');
+                Route::put('/{uid}/update', [DokterController::class, 'update'])->name('master.dokter.update');
+                Route::delete('/{uid}/destroy', [DokterController::class, 'destroy'])->name('master.dokter.destroy');
             });
         });
     });
